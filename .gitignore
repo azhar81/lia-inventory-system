@@ -1,0 +1,12 @@
+# Virtual Environment
+/venv
+
+# SQLite database
+db.sqlite3
+db.sqlite3-journal
+
+# Python cache files
+__pycache__/
+
+# User-uploaded media
+media/

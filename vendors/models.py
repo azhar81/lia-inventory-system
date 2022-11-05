@@ -5,3 +5,6 @@ class Vendor(models.Model):
   phone = models.CharField(max_length=20, unique=True)
   address = models.TextField(blank=True, default='')
   description = models.TextField(blank=True, default='')
+
+  def __str__(self):
+      return self.name

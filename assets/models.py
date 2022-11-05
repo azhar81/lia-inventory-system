@@ -34,3 +34,6 @@ class Asset(models.Model):
     monthlyDepreciation = self.price / usefulLifeInMonths
 
     return self.price - (monthlyDepreciation * assetAgeInMonths)
+
+  def __str__(self):
+      return f'{self.name}/{self.datePurchased}'

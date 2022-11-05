@@ -1,6 +1,5 @@
 from django.db import models
 from datetime import date
-from vendors.models import Vendor
 
 STATUS = [
   (1, 'Normal'),
@@ -14,7 +13,8 @@ class Asset(models.Model):
   name = models.CharField(max_length=100)
   status = models.IntegerField(choices=STATUS, default=1)
   merk = models.CharField(max_length=100, blank=True)
-  vendor = models.ForeignKey(Vendor, on_delete=models.RESTRICT, blank=True, null=True)
+  vendor = models.ForeignKey('vendors.Vendor', on_delete=models.RESTRICT, blank=True, null=True)
+  location = models.ForeignKey('locations.Location', on_delete=models.RESTRICT)
   price = models.FloatField()
   datePurchased = models.DateField(default = date.today)
   warrantyYears = models.IntegerField()
@@ -36,4 +36,4 @@ class Asset(models.Model):
     return self.price - (monthlyDepreciation * assetAgeInMonths)
 
   def __str__(self):
-      return f'{self.name}/{self.datePurchased}'
+      return f'{self.name}-{self.id}/{self.datePurchased}'

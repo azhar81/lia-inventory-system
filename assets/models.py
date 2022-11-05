@@ -1,3 +1,36 @@
 from django.db import models
+from datetime import date
+from vendors.models import Vendor
 
-# Create your models here.
+STATUS = [
+  (1, 'Normal'),
+  (2, 'Perlu diperiksa'),
+  (3, 'Diperbaiki'),
+  (4, 'Dipinjam'),
+  (5, 'Rusak')
+]
+
+class Asset(models.Model):
+  name = models.CharField(max_length=100)
+  status = models.IntegerField(choices=STATUS, default=1)
+  merk = models.CharField(max_length=100, blank=True)
+  vendor = models.ForeignKey(Vendor, on_delete=models.RESTRICT, blank=True, null=True)
+  price = models.FloatField()
+  datePurchased = models.DateField(default = date.today)
+  warrantyYears = models.IntegerField()
+  usefulLife = models.IntegerField()
+
+  def get_depreciated_value(self):
+    currTime = date.today()
+    yearDiff = currTime.year - self.datePurchased.year
+
+    if yearDiff < self.warrantyYears:
+      return self.price
+
+    monthDiff = currTime.month - self.datePurchased.month
+    assetAgeInMonths = (yearDiff*12) + monthDiff
+    usefulLifeInMonths = self.usefulLife * 12
+
+    monthlyDepreciation = self.price / usefulLifeInMonths
+
+    return self.price - (monthlyDepreciation * assetAgeInMonths)

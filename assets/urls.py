@@ -4,6 +4,8 @@ from assets import views
 
 urlpatterns = [
     path('assets/', views.AssetList.as_view()),
+    path('assets/static', views.AssetCreateStatic.as_view()),
+    path('assets/dynamic', views.AssetCreateDynamic.as_view()),
     path('assets/<int:pk>/', views.AssetDetail.as_view()),
 ]
 

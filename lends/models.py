@@ -9,7 +9,7 @@ STATUS = [
 ]
 
 class Lend(models.Model):
-  asset = models.ForeignKey("assets.Asset", on_delete=models.CASCADE)
+  asset = models.ForeignKey("assets.DynamicAsset", on_delete=models.CASCADE)
   borrowerName = models.CharField(max_length=50)
   dateBorrow = models.DateField(auto_now_add=True)
   dateReturn = models.DateField(blank=True, null=True)

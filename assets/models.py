@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import date
+from polymorphic.models import PolymorphicModel
 
 STATUS = [
   (1, 'Normal'),
@@ -9,7 +10,7 @@ STATUS = [
   (5, 'Rusak')
 ]
 
-class Asset(models.Model):
+class Asset(PolymorphicModel):
   name = models.CharField(max_length=100)
   status = models.IntegerField(choices=STATUS, default=1)
   merk = models.CharField(max_length=100, blank=True)
@@ -37,3 +38,9 @@ class Asset(models.Model):
 
   def __str__(self):
       return f'{self.name}-{self.id}/{self.datePurchased}'
+
+class StaticAsset(Asset):
+  pass
+
+class DynamicAsset(Asset):
+  pass

@@ -57,3 +57,19 @@ class LendTestCase(TestCase):
     )
     asset = get_asset(instance['asset'])
     self.assertEqual(asset.status, 1)
+
+  def test_lend_fills_statuses_on_return(self):
+    # initial
+    asset = get_asset(self.asset.id)
+    instance = create_lend(self.asset)
+
+    # on returning
+    instance_id = instance['id']
+    response = self.client.get(
+      f"/lends/{instance_id}/return",
+      content_type="application/json"
+    )
+
+    instance = Lend.objects.get(id=instance_id)
+    self.assertNotEqual(instance.dateReturn, None)
+    self.assertEqual(instance.assetReceiver, self.user)

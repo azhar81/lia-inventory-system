@@ -9,12 +9,12 @@ class LendList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 class LendDetail(generics.RetrieveAPIView):
-    queryset = Lend.objects.all()
+    queryset = Lend.objects.all().order_by('id')
     serializer_class = LendSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 class LendReturn(generics.RetrieveAPIView):
-    queryset = Lend.objects.all()
+    queryset = Lend.objects.all().order_by('id')
     serializer_class = LendSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 

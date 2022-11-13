@@ -11,4 +11,5 @@ urlpatterns = [
     path('', include('vendors.urls')),
     path('', include('assets.urls')),
     path('', include('locations.urls')),
+    path('', include('lends.urls')),
 ]

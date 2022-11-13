@@ -1,8 +1,12 @@
 from datetime import date
 from django.db import models
 from django.conf import settings
-
 from assets.models import Asset
+
+STATUS = [
+  (1, 'Berjalan'),
+  (2, 'Ditutup')
+]
 
 class Lend(models.Model):
   asset = models.ForeignKey("assets.Asset", on_delete=models.CASCADE)
@@ -15,6 +19,7 @@ class Lend(models.Model):
     blank=True,
     null=True
   )
+  status = models.IntegerField(choices=STATUS, default=1)
 
   def updateAssetStatus(self, status):
     self.asset.status = status
@@ -24,4 +29,5 @@ class Lend(models.Model):
     self.updateAssetStatus(1)
     self.dateReturn = date.today()
     self.assetReceiver = request.user
+    self.status = 2
     self.save()

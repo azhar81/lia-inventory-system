@@ -1,4 +1,6 @@
 from django.urls import include, path
+from django.conf import settings
+from django.conf.urls.static import static
 from rest_framework import routers
 from users import views
 
@@ -12,4 +14,9 @@ urlpatterns = [
     path('', include('assets.urls')),
     path('', include('locations.urls')),
     path('', include('lends.urls')),
+    path('', include('inspections.urls')),
 ]
+
+# Medias URL
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

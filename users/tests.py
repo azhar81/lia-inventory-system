@@ -9,3 +9,12 @@ def create_user():
 
   user = User.objects.create_user(**data)
   return user
+
+def create_user_with_username(username):
+  data = {
+    'username': username,
+    'password': 'TestPassword'
+  }
+
+  user = User.objects.create_user(**data)
+  return user

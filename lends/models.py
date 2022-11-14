@@ -31,3 +31,7 @@ class Lend(models.Model):
     self.assetReceiver = request.user
     self.status = 2
     self.save()
+
+  def delete(self, *args, **kwargs):
+    self.updateAssetStatus(1)
+    super().delete(*args, **kwargs)

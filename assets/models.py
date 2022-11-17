@@ -26,6 +26,7 @@ class Asset(PolymorphicModel):
   datePurchased = models.DateField(default = date.today)
   warrantyYears = models.IntegerField()
   usefulLife = models.IntegerField()
+  lastInspection = models.DateField(editable=False, blank=True, null=True)
 
   def get_depreciated_value(self):
     currTime = date.today()
@@ -41,6 +42,10 @@ class Asset(PolymorphicModel):
     monthlyDepreciation = self.price / usefulLifeInMonths
 
     return self.price - (monthlyDepreciation * assetAgeInMonths)
+
+  def update_last_inspect(self):
+    self.lastInspection = date.today()
+    self.save()
 
   def __str__(self):
       return f'{self.name}-{self.id}/{self.datePurchased}'

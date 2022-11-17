@@ -42,12 +42,19 @@ class AssetTestCase(TestCase):
     self.user = create_user()
     self.client.login(username='TestUser', password='TestPassword')
 
-  def test_create_asset_create_object(self):
+  def test_create_dynamic_asset_create_dynamic_object(self):
     self.assertEqual(Asset.objects.all().count(), 0)
     create_asset()
     self.assertEqual(Asset.objects.all().count(), 1)
+    self.assertEqual(StaticAsset.objects.all().count(), 0)
 
-  def test_create_asset_static_create_object(self):
+  def test_create_asset_static_create_static_object(self):
     self.assertEqual(Asset.objects.all().count(), 0)
     create_asset_static()
     self.assertEqual(Asset.objects.all().count(), 1)
+    self.assertEqual(DynamicAsset.objects.all().count(), 0)
+    
+  def test_update_last_inspect(self):
+    asset = create_asset()
+    asset.update_last_inspect()
+    self.assertNotEqual(Asset.objects.get(id=asset.id).lastInspection, None)

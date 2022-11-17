@@ -4,7 +4,6 @@
 # SQLite database
 db.sqlite3
 db.sqlite3-journal
-*/migrations/
 
 # Python cache files
 __pycache__/

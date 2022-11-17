@@ -4,6 +4,7 @@ from lends import views
 
 urlpatterns = [
   path('lends/', views.LendList.as_view()),
+  path('lends/ongoing', views.LendOngoingList.as_view()),
   path('lends/<int:pk>/', views.LendDetail.as_view()),
   path('lends/<int:pk>/return', views.LendReturn.as_view()),
 ]

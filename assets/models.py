@@ -1,6 +1,12 @@
 from django.db import models
 from datetime import date
+from rest_framework.exceptions import APIException
 from polymorphic.models import PolymorphicModel
+
+class AssetException(APIException):
+  status_code = 400
+  default_detail = 'Asset not available to be processed.'
+  default_code = 'asset_unavailable'
 
 STATUS = [
   (1, 'Normal'),

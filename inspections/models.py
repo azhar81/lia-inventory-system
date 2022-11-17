@@ -2,12 +2,8 @@ import os
 
 from django.db import models
 from django.conf import settings
-from rest_framework.exceptions import APIException
 
-class AssetException(APIException):
-  status_code = 400
-  default_detail = 'Cannot inspect currently inspected asset.'
-  default_code = 'asset_unavailable'
+from assets.models import AssetException
 
 class Inspection(models.Model):
   asset = models.ForeignKey("assets.Asset", on_delete=models.CASCADE)
@@ -39,8 +35,8 @@ class Inspection(models.Model):
   def save(self, *args, **kwargs):
     # update asset status on creation only
     if not self.pk:
-      if self.asset.status == 2:
-        raise AssetException()
+      if self.asset.status != 1:
+        raise AssetException(f"Asset saat ini sedang dalam proses `{self.asset.get_status_display()}`.")
       if self.broken:
         self.updateAssetStatus(2)
         self.ongoing = True

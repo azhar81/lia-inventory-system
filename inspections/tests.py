@@ -5,11 +5,15 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 
 from users.tests import create_user_with_username, create_user
 from assets.tests import create_asset, get_asset
-from .models import Inspection, AssetException
+from assets.models import AssetException
+from .models import Inspection
 from .serializers import InspectionSerializer
 
 def create_inspection_helper(broken=False):
-  img = SimpleUploadedFile(name='test_image.png', content=open("test_image.png", 'rb').read(), content_type='image/png')
+  try:
+    img = SimpleUploadedFile(name='test_image.png', content=open("media/test_image.png", 'rb').read(), content_type='image/png')
+  except:
+    raise Exception("Need to upload image with name \"test_image.png\" to media\\ directory.")
   user = create_user_with_username("TestUserInspection")
   asset = create_asset()
 
@@ -27,7 +31,10 @@ def create_inspection_helper(broken=False):
   return instance
 
 def create_inspection(broken, asset, client=None, login=None, user=None):
-  img = SimpleUploadedFile(name='test_image.png', content=open("test_image.png", 'rb').read(), content_type='image/png')
+  try:
+    img = SimpleUploadedFile(name='test_image.png', content=open("media/test_image.png", 'rb').read(), content_type='image/png')
+  except:
+    raise Exception("Need to upload image with name \"test_image.png\" to media directory.")
   data = {
     'photo': img,
     'broken': broken,

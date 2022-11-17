@@ -29,3 +29,7 @@ class LendReturn(generics.RetrieveAPIView):
       instance.returnAsset(request)
       return super().retrieve(request, *args, **kwargs)
 
+class LendOngoingList(generics.ListCreateAPIView):
+    queryset = Lend.objects.filter(status=1)
+    serializer_class = LendSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]

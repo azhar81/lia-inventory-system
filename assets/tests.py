@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.test import TestCase
 from rest_framework.test import APIClient
 from assets.models import Asset, DynamicAsset, StaticAsset
@@ -57,4 +59,4 @@ class AssetTestCase(TestCase):
   def test_update_last_inspect(self):
     asset = create_asset()
     asset.update_last_inspect()
-    self.assertNotEqual(Asset.objects.get(id=asset.id).lastInspection, None)
+    self.assertEqual(Asset.objects.get(id=asset.id).lastInspection, date.today())

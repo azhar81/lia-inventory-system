@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.test import TestCase
 from rest_framework.test import APIClient
 from rest_framework.exceptions import APIException
@@ -107,3 +109,8 @@ class InspectionTestCase(TestCase):
     self.inspection = create_inspection(True, self.asset, user=self.user)
     self.inspection.closeInspection()
     self.assertFalse(self.inspection.ongoing)
+
+  def test_asset_last_inspection_updated_when_inspected(self):
+    self.inspection = create_inspection(True, self.asset, user=self.user)
+    asset = self.inspection.asset
+    self.assertEqual(asset.lastInspection, date.today())

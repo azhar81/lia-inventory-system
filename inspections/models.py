@@ -39,6 +39,7 @@ class Inspection(models.Model):
         raise AssetException(f"Asset saat ini sedang dalam proses `{self.asset.get_status_display()}`.")
       if self.broken:
         self.updateAssetStatus(2)
+        self.asset.update_last_inspect()
         self.ongoing = True
     super().save(*args, **kwargs)
 

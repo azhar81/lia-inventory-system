@@ -18,3 +18,14 @@ def create_user_with_username(username):
 
   user = User.objects.create_user(**data)
   return user
+
+def create_user_with_username_first_last_name(username, first_name, last_name):
+  data = {
+    'username': username,
+    'first_name': first_name,
+    'last_name': last_name,
+    'password': 'TestPassword'
+  }
+
+  user = User.objects.create_user(**data)
+  return user

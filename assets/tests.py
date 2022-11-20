@@ -15,7 +15,7 @@ def create_asset():
   location = create_location()
   data = {
     'name': 'Asset Main',
-    'price':'500000',
+    'price': 500000,
     'vendor': vendor,
     'location': location,
     'warrantyYears': 2,
@@ -29,7 +29,7 @@ def create_asset_static():
   location = create_location()
   data = {
     'name': 'Asset Main',
-    'price':'500000',
+    'price':500000,
     'vendor': vendor,
     'location': location,
     'warrantyYears': 2,
@@ -55,7 +55,7 @@ class AssetTestCase(TestCase):
     create_asset_static()
     self.assertEqual(Asset.objects.all().count(), 1)
     self.assertEqual(DynamicAsset.objects.all().count(), 0)
-    
+
   def test_update_last_inspect(self):
     asset = create_asset()
     asset.update_last_inspect()

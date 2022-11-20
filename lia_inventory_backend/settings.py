@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'locations',
     'lends',
     'inspections',
+    'maintenances',
 ]
 
 MIDDLEWARE = [

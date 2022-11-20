@@ -15,6 +15,7 @@ urlpatterns = [
     path('', include('locations.urls')),
     path('', include('lends.urls')),
     path('', include('inspections.urls')),
+    path('', include('maintenances.urls')),
 ]
 
 # Medias URL

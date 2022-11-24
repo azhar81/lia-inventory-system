@@ -18,7 +18,7 @@ STATUS = [
 
 class Asset(PolymorphicModel):
   name = models.CharField(max_length=100)
-  status = models.IntegerField(choices=STATUS, default=1)
+  status = models.IntegerField(choices=STATUS, default=1, editable=False)
   merk = models.CharField(max_length=100, blank=True)
   vendor = models.ForeignKey('vendors.Vendor', on_delete=models.RESTRICT, blank=True, null=True)
   location = models.ForeignKey('locations.Location', on_delete=models.RESTRICT)
@@ -26,7 +26,7 @@ class Asset(PolymorphicModel):
   datePurchased = models.DateField(default = date.today)
   warrantyYears = models.IntegerField()
   usefulLife = models.IntegerField()
-  lastInspection = models.DateField(editable=False, blank=True, null=True)
+  lastInspection = models.DateField(editable=False, auto_now_add=True)
 
   def get_depreciated_value(self):
     currTime = date.today()

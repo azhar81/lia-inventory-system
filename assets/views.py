@@ -11,6 +11,9 @@ class AssetList(generics.ListAPIView):
         queryset = Asset.objects.all()
         status = self.request.query_params.get('status')
         need_inspection = self.request.query_params.get('need_inspection')
+        branch = self.request.query_params.get('branch')
+        floor = self.request.query_params.get('floor')
+        room = self.request.query_params.get('room')
 
         if status != None:
             queryset = queryset.filter(status=status)
@@ -20,6 +23,13 @@ class AssetList(generics.ListAPIView):
                 queryset = queryset.filter(lastInspection__lte=max_last_inspection)
             else:
                 queryset = queryset.filter(lastInspection__gte=max_last_inspection)
+
+        if branch != None:
+            queryset = queryset = queryset.filter(location__branch = branch)
+            if floor:
+                queryset = queryset = queryset.filter(location__floor = floor)
+                if room:
+                    queryset = queryset = queryset.filter(location__room = room)
 
         return queryset
 

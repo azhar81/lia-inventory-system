@@ -3,7 +3,7 @@ from assets.models import Asset
 
 BRANCH = [
   ('CKL','Cikokol'),
-  ('TGR', 'Tanggerang'),
+  ('KRC', 'Karawaci'),
   ('BSD', 'BSD')
 ]
 

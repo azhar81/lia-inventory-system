@@ -48,7 +48,11 @@ class Asset(PolymorphicModel):
     self.save()
 
   def __str__(self):
-      return f'{self.name}-{self.id}/{self.datePurchased}'
+    string = self.name
+    if self.merk != "":
+      string += f' {self.merk}'
+    string += f'-{self.id}/{self.location}'
+    return string
 
 class StaticAsset(Asset):
   pass

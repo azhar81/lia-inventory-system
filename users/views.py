@@ -1,20 +1,13 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
 from rest_framework import generics, permissions
-from users.serializers import UserSerializer, GroupSerializer
-from users.permissions import IsStaffOrReadOnly
+from users.serializers import UserSerializer
+from users import permissions as userpermissions
 
-class UserList(generics.ListAPIView):
+class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [userpermissions.IsAdminOrReadOnly]
 
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-class GroupList(generics.ListAPIView):
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-
-class GroupDetail(generics.RetrieveAPIView):
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer

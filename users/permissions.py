@@ -1,17 +1,35 @@
-from rest_framework import permissions
+from rest_framework.permissions import BasePermission, SAFE_METHODS
 
-class IsStaffOrReadOnly(permissions.BasePermission):
+class IsAdminOrReadOnly(BasePermission):
+    """
+    The request is authenticated as a staff/admin, or is a read-only request.
+    """
+
+    def has_permission(self, request, view):
+        return bool(
+            request.method in SAFE_METHODS or
+            request.user and
+            request.user.is_staff
+        )
+
+class IsJanitor(BasePermission):
   """
-  Custom permission to only allow Admins to edit.
+  The request is authenticated as a janitor.
   """
 
-  def is_admin(self, request):
-    # Read permissions are allowed to any request,
-    # so we'll always allow GET, HEAD or OPTIONS requests.
-    if request.method in permissions.SAFE_METHODS:
-      return True
+  def has_permission(self, request, view):
+      return bool(
+          request.user and
+          request.user.employee.role == 'Janitor'
+      )
 
-    print('------------------------------')
-    print(request.user.is_staff)
+class IsTechnician(BasePermission):
+  """
+  The request is authenticated as a janitor.
+  """
 
-    return True
+  def has_permission(self, request, view):
+      return bool(
+          request.user and
+          request.user.employee.role == 'Technician'
+      )

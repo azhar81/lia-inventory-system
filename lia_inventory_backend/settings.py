@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'polymorphic',
+    'users',
     'vendors',
     'assets',
     'locations',

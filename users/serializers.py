@@ -19,7 +19,6 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        print(validated_data)
         role = validated_data.pop('employee')['role']
 
         user = User.objects.create(

@@ -5,7 +5,7 @@ from rest_framework import generics, permissions
 
 class AssetList(generics.ListAPIView):
     serializer_class = AssetSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         queryset = Asset.objects.all()
@@ -36,14 +36,14 @@ class AssetList(generics.ListAPIView):
 class AssetCreateStatic(generics.CreateAPIView):
     queryset = StaticAsset.objects.all().order_by('id')
     serializer_class = StaticAssetSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
 class AssetCreateDynamic(generics.CreateAPIView):
     queryset = DynamicAsset.objects.all().order_by('id')
     serializer_class = DynamicAssetSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
 class AssetDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Asset.objects.all()
     serializer_class = AssetSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]

@@ -6,17 +6,17 @@ from lends.serializers import LendSerializer
 class LendList(generics.ListCreateAPIView):
     queryset = Lend.objects.all()
     serializer_class = LendSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
 class LendDetail(generics.RetrieveAPIView):
     queryset = Lend.objects.all().order_by('id')
     serializer_class = LendSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
 class LendReturn(generics.RetrieveAPIView):
     queryset = Lend.objects.all().order_by('id')
     serializer_class = LendSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
     # update instances on returns (updating status to 1)
     def retrieve(self, request, *args, **kwargs):
@@ -32,4 +32,4 @@ class LendReturn(generics.RetrieveAPIView):
 class LendOngoingList(generics.ListCreateAPIView):
     queryset = Lend.objects.filter(status=1)
     serializer_class = LendSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]

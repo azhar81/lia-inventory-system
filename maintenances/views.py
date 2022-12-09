@@ -6,7 +6,7 @@ from maintenances.serializers import MaintenanceSerializer
 class MaintenanceList(generics.ListCreateAPIView):
   queryset = Maintenance.objects.all().order_by('id')
   serializer_class = MaintenanceSerializer
-  permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+  permission_classes = [permissions.IsAuthenticated]
 
   def perform_create(self, serializer):
     serializer.save(staff=self.request.user)
@@ -14,12 +14,12 @@ class MaintenanceList(generics.ListCreateAPIView):
 class MaintenanceDetail(generics.RetrieveAPIView):
   queryset = Maintenance.objects.all()
   serializer_class = MaintenanceSerializer
-  permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+  permission_classes = [permissions.IsAuthenticated]
 
 class MaintenanceApprove(generics.RetrieveAPIView):
   queryset = Maintenance.objects.all()
   serializer_class = MaintenanceSerializer
-  permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+  permission_classes = [permissions.IsAuthenticated]
 
   def retrieve(self, request, *args, **kwargs):
       instance = self.get_object()
@@ -30,7 +30,7 @@ class MaintenanceApprove(generics.RetrieveAPIView):
 class MaintenanceReject(generics.RetrieveAPIView):
   queryset = Maintenance.objects.all()
   serializer_class = MaintenanceSerializer
-  permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+  permission_classes = [permissions.IsAuthenticated]
 
   def retrieve(self, request, *args, **kwargs):
       instance = self.get_object()
@@ -41,7 +41,7 @@ class MaintenanceReject(generics.RetrieveAPIView):
 class MaintenanceFinish(generics.RetrieveAPIView):
   queryset = Maintenance.objects.all()
   serializer_class = MaintenanceSerializer
-  permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+  permission_classes = [permissions.IsAuthenticated]
 
   def retrieve(self, request, *args, **kwargs):
       instance = self.get_object()
